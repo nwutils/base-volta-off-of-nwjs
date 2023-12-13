@@ -1,0 +1,31 @@
+{
+  "name": "base-volta-off-of-nwjs",
+  "main": "index.js",
+  "bin": "./index.js",
+  "license": "MIT",
+  "description": "Updates Volta config in package.json so Node match's what your NW.js version uses",
+  "version": "1.0.0",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nwutils/base-volta-off-of-nwjs.git"
+  },
+  "keywords": [
+    "nw.js",
+    "volta",
+    "node.js",
+    "version",
+    "management",
+    "automated"
+  ],
+  "author": "TheJaredWilcurt",
+  "bugs": {
+    "url": "https://github.com/nwutils/base-volta-off-of-nwjs/issues"
+  },
+  "homepage": "https://github.com/nwutils/base-volta-off-of-nwjs#readme",
+  "volta": {
+    "node": "21.4.0",
+    "npm": "10.2.4"
+  }
+}

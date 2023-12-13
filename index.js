@@ -1,6 +1,8 @@
-import { promises as fs } from 'fs';
+#!/usr/bin/env node
+
+import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import * as url from 'url';
+import * as url from 'node:url';
 
 let https;
 try {
@@ -10,6 +12,9 @@ try {
 }
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+let manifestIndentation = 2;
+let manifestEOL = '\n';
 
 function fileExists (file) {
   return fs.access(file, fs.constants.F_OK)
@@ -47,21 +52,31 @@ function getVersions () {
   });
 }
 
+function getLocalNwManifestPath () {
+  return new Promise(async (resolve, reject) => {
+    const nwManifestRelativeToHere = path.resolve(__dirname, '..', 'nw', 'package.json');
+    const nwManifestRelativeToCwd = path.resolve(process.cwd(), 'node_modules', 'nw', 'package.json');
+    const hereExists = await fileExists(nwManifestRelativeToHere);
+    const cwdExists = await fileExists(nwManifestRelativeToCwd);
+    if (hereExists) {
+      resolve(nwManifestRelativeToHere);
+    } else if (cwdExists) {
+      resolve(nwManifestRelativeToCwd);
+    } else {
+      reject(new Error('Could not locate nw node module manifest.'));
+    }
+  });
+}
+
 function getLocalNwManifest () {
   return new Promise(async (resolve, reject) => {
-    const nwManifest = path.join(__dirname, 'node_modules', 'nw', 'package.json');
-    const nwManifestExists = await fileExists(nwManifest);
-
-    if (nwManifestExists) {
-      try {
-        let data = await fs.readFile(nwManifest, 'binary');
-        data = JSON.parse(data);
-        resolve(data);
-      } catch (error) {
-        reject(error);
-      }
-    } else {
-      reject(new Error('NW.js manifest file does not seem to exist'));
+    try {
+      const nwManifest = await getLocalNwManifestPath();
+      let data = await fs.readFile(nwManifest, 'binary');
+      data = JSON.parse(data);
+      resolve(data);
+    } catch (error) {
+      reject(error);
     }
   });
 }
@@ -91,26 +106,68 @@ function getCorrectNodeVersion () {
   });
 }
 
-function getManifest () {
-  return new Promise(async (resolve, reject) => {
-    const manifest = path.join(__dirname, 'package.json');
-    const manifestExists = await fileExists(manifest);
+function determineOriginalManifestIndentation (data) {
+  data = data.trim();
+  data = data.replaceAll('\r\n', '\n');
 
-    if (manifestExists) {
-      try {
-        let data = await fs.readFile(manifest, 'binary');
-        data = JSON.parse(data);
-        resolve(data);
-      } catch (error) {
-        reject(error);
-      }
+  if (data[0] !== '{' || data[1] !== '\n') {
+    return;
+  }
+
+  let first = data[2];
+  let second = data[3];
+  let third = data[4];
+  let fourth = data[5];
+
+  if (first === '\t') {
+    manifestIndentation = '\t';
+  } else if (first + second + third + fourth === '    ') {
+    manifestIndentation = 4;
+  } else {
+    manifestIndentation = 2;
+  }
+}
+
+function determinOriginalEOL (data) {
+  if (data.includes('\r\n')) {
+    manifestEOL = '\r\n';
+  } else {
+    manifestEOL = '\n';
+  }
+}
+
+function getManifestPath () {
+  return new Promise(async (resolve, reject) => {
+    const manifestRelativeToHere = path.resolve(__dirname, '..', '..', 'package.json');
+    const manifestRelativeToCwd = path.resolve(process.cwd(), 'package.json');
+    const hereExists = await fileExists(manifestRelativeToHere);
+    const cwdExists = await fileExists(manifestRelativeToCwd);
+    if (hereExists) {
+      resolve(manifestRelativeToHere);
+    } else if (cwdExists) {
+      resolve(manifestRelativeToCwd);
     } else {
-      reject(new Error('Cannot locate package.json'));
+      reject(new Error('Could not locate your manifest.'));
     }
   });
 }
 
-function updateVoltaObjectInManifest () {
+function getManifest () {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const manifest = await getManifestPath();
+      let data = await fs.readFile(manifest, 'binary');
+      determineOriginalManifestIndentation(String(data));
+      determinOriginalEOL(String(data));
+      data = JSON.parse(data);
+      resolve(data);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+function getManifestWithUpdatedVoltaObject () {
   return new Promise(async (resolve, reject) => {
     try {
       const manifest = await getManifest();
@@ -126,9 +183,14 @@ function updateVoltaObjectInManifest () {
 
 async function run () {
   try {
-    const mutatedManifest = await updateVoltaObjectInManifest();
-    const manifest = path.join(__dirname, 'package.json');
-    await fs.writeFile(manifest, JSON.stringify(mutatedManifest, null, 2) + '\n');
+    const manifestPath = await getManifestPath();
+
+    let mutatedManifest = await getManifestWithUpdatedVoltaObject();
+    mutatedManifest = JSON.stringify(mutatedManifest, null, manifestIndentation);
+    mutatedManifest = mutatedManifest.replaceAll('\r\n', '\n').replaceAll('\n', manifestEOL);
+    mutatedManifest = mutatedManifest + manifestEOL;
+
+    await fs.writeFile(manifestPath, mutatedManifest);
   } catch (error) {
     console.error(error);
   }
