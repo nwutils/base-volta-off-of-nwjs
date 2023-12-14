@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
-import * as url from 'node:url';
+// SUPER IMPORTANT:
+// Node is extremely annoying and refuses to allow ESM imports in
+// CLI tools, so we have to use require here, do not change to import.
+const fs = require('node:fs').promises;
+const path = require('node:path');
 
 let https;
 try {
-  https = await import('node:https');
-} catch (error) {
+  https = require('node:https');
+} catch (err) {
   console.error('https support is disabled!');
 }
-
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 let originalManifestIndentation = 2;
 let originalManifestEOL = '\n';
