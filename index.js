@@ -13,8 +13,8 @@ try {
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-let manifestIndentation = 2;
-let manifestEOL = '\n';
+let originalManifestIndentation = 2;
+let originalManifestEOL = '\n';
 
 function fileExists (file) {
   return fs.access(file, fs.constants.F_OK)
@@ -120,19 +120,19 @@ function determineOriginalManifestIndentation (data) {
   let fourth = data[5];
 
   if (first === '\t') {
-    manifestIndentation = '\t';
+    originalManifestIndentation = '\t';
   } else if (first + second + third + fourth === '    ') {
-    manifestIndentation = 4;
+    originalManifestIndentation = 4;
   } else {
-    manifestIndentation = 2;
+    originalManifestIndentation = 2;
   }
 }
 
 function determinOriginalEOL (data) {
   if (data.includes('\r\n')) {
-    manifestEOL = '\r\n';
+    originalManifestEOL = '\r\n';
   } else {
-    manifestEOL = '\n';
+    originalManifestEOL = '\n';
   }
 }
 
@@ -186,9 +186,9 @@ async function run () {
     const manifestPath = await getManifestPath();
 
     let mutatedManifest = await getManifestWithUpdatedVoltaObject();
-    mutatedManifest = JSON.stringify(mutatedManifest, null, manifestIndentation);
-    mutatedManifest = mutatedManifest.replaceAll('\r\n', '\n').replaceAll('\n', manifestEOL);
-    mutatedManifest = mutatedManifest + manifestEOL;
+    mutatedManifest = JSON.stringify(mutatedManifest, null, originalManifestIndentation);
+    mutatedManifest = mutatedManifest.replaceAll('\r\n', '\n').replaceAll('\n', originalManifestEOL);
+    mutatedManifest = mutatedManifest + originalManifestEOL;
 
     await fs.writeFile(manifestPath, mutatedManifest);
   } catch (error) {
