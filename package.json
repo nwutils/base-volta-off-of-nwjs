@@ -1,10 +1,10 @@
 {
   "name": "base-volta-off-of-nwjs",
+  "version": "0.0.1",
   "main": "index.js",
   "bin": "./index.js",
   "license": "MIT",
   "description": "Updates Volta config in package.json so Node match's what your NW.js version uses",
-  "version": "1.0.0",
   "scripts": {
   },
   "repository": {
