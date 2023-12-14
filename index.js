@@ -9,7 +9,7 @@ const path = require('node:path');
 let https;
 try {
   https = require('node:https');
-} catch (err) {
+} catch (error) {
   console.error('https support is disabled!');
 }
 
@@ -54,14 +54,14 @@ function getVersions () {
 
 function getLocalNwManifestPath () {
   return new Promise(async (resolve, reject) => {
-    const nwManifestRelativeToHere = path.resolve(__dirname, '..', 'nw', 'package.json');
     const nwManifestRelativeToCwd = path.resolve(process.cwd(), 'node_modules', 'nw', 'package.json');
-    const hereExists = await fileExists(nwManifestRelativeToHere);
+    const nwManifestRelativeToHere = path.resolve(__dirname, '..', 'nw', 'package.json');
     const cwdExists = await fileExists(nwManifestRelativeToCwd);
-    if (hereExists) {
-      resolve(nwManifestRelativeToHere);
-    } else if (cwdExists) {
+    const hereExists = await fileExists(nwManifestRelativeToHere);
+    if (cwdExists) {
       resolve(nwManifestRelativeToCwd);
+    } else if (hereExists) {
+      resolve(nwManifestRelativeToHere);
     } else {
       reject(new Error('Could not locate nw node module manifest.'));
     }
@@ -138,14 +138,14 @@ function determinOriginalEOL (data) {
 
 function getManifestPath () {
   return new Promise(async (resolve, reject) => {
-    const manifestRelativeToHere = path.resolve(__dirname, '..', '..', 'package.json');
     const manifestRelativeToCwd = path.resolve(process.cwd(), 'package.json');
-    const hereExists = await fileExists(manifestRelativeToHere);
+    const manifestRelativeToHere = path.resolve(__dirname, '..', '..', 'package.json');
     const cwdExists = await fileExists(manifestRelativeToCwd);
-    if (hereExists) {
-      resolve(manifestRelativeToHere);
-    } else if (cwdExists) {
+    const hereExists = await fileExists(manifestRelativeToHere);
+    if (cwdExists) {
       resolve(manifestRelativeToCwd);
+    } else if (hereExists) {
+      resolve(manifestRelativeToHere);
     } else {
       reject(new Error('Could not locate your manifest.'));
     }
