@@ -1,11 +1,20 @@
 {
   "name": "base-volta-off-of-nwjs",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "main": "index.js",
   "bin": "./index.js",
   "license": "MIT",
   "description": "Updates Volta config in package.json so Node match's what your NW.js version uses",
   "scripts": {
+    "lint": "eslint --ext .js --config=.eslintrc.cjs .eslintrc.cjs",
+    "fix": "eslint --fix --ext .js --config=.eslintrc.cjs .eslintrc.cjs"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.23.3",
+    "eslint": "^8.54.0",
+    "eslint-config-tjw-base": "^2.0.0",
+    "eslint-config-tjw-import": "^1.0.0",
+    "eslint-plugin-import": "^2.29.0"
   },
   "repository": {
     "type": "git",
