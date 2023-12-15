@@ -6,7 +6,7 @@ Updates the Volta config in your `package.json` so your Node.js version will mat
 ## Usage
 
 1. Uninstall any Node Version Managers you have, then install [Volta](https://volta.sh)
-1. In your repo run `npm pkg set scripts.postinstall="npx base-volta-off-of-nwjs"`
+1. In your repo run `npm pkg set scripts.postinstall="npx base-volta-off-of-nwjs@latest"`
 1. Then run `npm install`
    * If it asks if you want to run `base-volta-off-of-nwjs` press `enter` to confirm, this should only happen once
 
