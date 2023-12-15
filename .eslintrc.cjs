@@ -13,10 +13,6 @@ module.exports = {
     'tjw-import'
   ],
   rules: {
-    'import/no-anonymous-default-export': 'off',
-    'import/no-namespace': 'off',
-    'import/no-unresolved': 'off',
-    'import/no-unused-modules': 'off',
     'no-restricted-syntax': [
       'error',
       ...baseRestrictedSyntax
