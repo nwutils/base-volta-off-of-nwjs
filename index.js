@@ -81,13 +81,25 @@ function getLocalNwManifest () {
   });
 }
 
+function getLocalNWVersion () {
+  return new Promise(async (resolve, reject) => {
+    const nwManifest = await getLocalNwManifest();
+    let localNwVersion = nwManifest?.version || '';
+    localNwVersion = localNwVersion.replace('-sdk', '');
+    if (localNwVersion) {
+      resolve(localNwVersion);
+    } else {
+      reject(new Error('Unable to get local NW.js version'));
+    }
+  });
+}
+
 function getCorrectNodeVersion () {
   return new Promise(async (resolve, reject) => {
     try {
-      const nwManifest = await getLocalNwManifest();
+      const localNwVersion = await getLocalNWVersion();
       const allNwVersions = await getVersions();
 
-      const localNwVersion = nwManifest?.version;
       const match = allNwVersions.versions.find(function (version) {
         return version.version === 'v' + localNwVersion;
       });
