@@ -85,7 +85,10 @@ function getLocalNWVersion () {
   return new Promise(async (resolve, reject) => {
     const nwManifest = await getLocalNwManifest();
     let localNwVersion = nwManifest?.version || '';
+
+    // '0.82.0-sdk' => '0.82.0'
     localNwVersion = localNwVersion.replace('-sdk', '');
+
     if (localNwVersion) {
       resolve(localNwVersion);
     } else {
@@ -101,6 +104,7 @@ function getCorrectNodeVersion () {
       const allNwVersions = await getVersions();
 
       const match = allNwVersions.versions.find(function (version) {
+        // 'v0.82.0' === 'v' + '0.82.0'
         return version.version === 'v' + localNwVersion;
       });
       if (!match) {
