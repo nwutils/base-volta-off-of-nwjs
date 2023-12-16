@@ -17,7 +17,7 @@ let originalManifestIndentation = 2;
 let originalManifestEOL = '\n';
 
 function fileExists (file) {
-  return fs.existsSync(file);
+  return require('node:fs').existsSync(file);
 }
 
 function getVersions () {
