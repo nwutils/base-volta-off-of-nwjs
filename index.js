@@ -2,7 +2,7 @@
 
 // SUPER IMPORTANT:
 // Node is extremely annoying and refuses to allow ESM imports in
-// CLI tools, so we have to use require here, do not change to import.
+// CLI tools, so we have to use require here. Do not change to import.
 const fs = require('node:fs').promises;
 const path = require('node:path');
 
@@ -17,13 +17,7 @@ let originalManifestIndentation = 2;
 let originalManifestEOL = '\n';
 
 function fileExists (file) {
-  return fs.access(file, fs.constants.F_OK)
-    .then(() => {
-      return true;
-    })
-    .catch(() => {
-      return false;
-    });
+  return fs.existsSync(file);
 }
 
 function getVersions () {
