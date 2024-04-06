@@ -3,6 +3,9 @@
 import fs from 'node:fs';
 import https from 'node:https';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+    
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 let originalManifestIndentation = 2;
 let originalManifestEOL = '\n';
@@ -40,7 +43,7 @@ function getVersions () {
 function getLocalNwManifestPath () {
   return new Promise(async (resolve, reject) => {
     const nwManifestRelativeToCwd = path.resolve(process.cwd(), 'node_modules', 'nw', 'package.json');
-    const nwManifestRelativeToHere = path.resolve(import.meta.dirname, '..', 'nw', 'package.json');
+    const nwManifestRelativeToHere = path.resolve(__dirname, '..', 'nw', 'package.json');
     const cwdExists = await fileExists(nwManifestRelativeToCwd);
     const hereExists = await fileExists(nwManifestRelativeToHere);
     if (cwdExists) {
@@ -140,7 +143,7 @@ function determinOriginalEOL (data) {
 function getManifestPath () {
   return new Promise(async (resolve, reject) => {
     const manifestRelativeToCwd = path.resolve(process.cwd(), 'package.json');
-    const manifestRelativeToHere = path.resolve(import.meta.dirname, '..', '..', 'package.json');
+    const manifestRelativeToHere = path.resolve(__dirname, '..', '..', 'package.json');
     const cwdExists = await fileExists(manifestRelativeToCwd);
     const hereExists = await fileExists(manifestRelativeToHere);
     if (cwdExists) {
