@@ -1,0 +1,10 @@
+{
+    "name": "demo",
+    "private": true,
+    "scripts": {
+        "start": "base-volta-off-of-nwjs"
+    },
+    "devDependencies": {
+        "nw": "0.86.0-1"
+    }
+}

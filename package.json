@@ -8,7 +8,8 @@
   "description": "Updates Volta config in package.json so Node match's what your NW.js version uses",
   "scripts": {
     "lint": "eslint --ext .js --config=.eslintrc.cjs .eslintrc.cjs",
-    "fix": "eslint --fix --ext .js --config=.eslintrc.cjs .eslintrc.cjs"
+    "fix": "eslint --fix --ext .js --config=.eslintrc.cjs .eslintrc.cjs",
+    "test": "vitest run --pool=forks"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
