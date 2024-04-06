@@ -2,6 +2,7 @@
   "name": "base-volta-off-of-nwjs",
   "version": "1.0.3",
   "main": "index.js",
+  "type": "module",
   "bin": "./index.js",
   "license": "MIT",
   "description": "Updates Volta config in package.json so Node match's what your NW.js version uses",
@@ -14,7 +15,8 @@
     "eslint": "^8.54.0",
     "eslint-config-tjw-base": "^2.0.0",
     "eslint-config-tjw-import": "^1.0.0",
-    "eslint-plugin-import": "^2.29.0"
+    "eslint-plugin-import": "^2.29.0",
+    "vitest": "^1.4.0"
   },
   "repository": {
     "type": "git",
@@ -36,5 +38,8 @@
   "volta": {
     "node": "21.4.0",
     "npm": "10.2.4"
+  },
+  "dependencies": {
+    "semver": "^7.6.0"
   }
 }

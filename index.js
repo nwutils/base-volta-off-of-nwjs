@@ -1,23 +1,22 @@
 #!/usr/bin/env node
 
-// SUPER IMPORTANT:
-// Node is extremely annoying and refuses to allow ESM imports in
-// CLI tools, so we have to use require here. Do not change to import.
-const fs = require('node:fs').promises;
-const path = require('node:path');
+import fs from 'node:fs';
+import https from 'node:https';
+import path from 'node:path';
 
-let https;
-try {
-  https = require('node:https');
-} catch (error) {
-  console.error('https support is disabled!');
-}
+import * as semver from 'semver';
 
 let originalManifestIndentation = 2;
 let originalManifestEOL = '\n';
 
-function fileExists (file) {
-  return require('node:fs').existsSync(file);
+async function fileExists (file) {
+  let exists = true;
+  try {
+    await fs.promises.stat(file);
+  } catch {
+    exists = false;
+  }
+  return exists;
 }
 
 function getVersions () {
@@ -49,7 +48,7 @@ function getVersions () {
 function getLocalNwManifestPath () {
   return new Promise(async (resolve, reject) => {
     const nwManifestRelativeToCwd = path.resolve(process.cwd(), 'node_modules', 'nw', 'package.json');
-    const nwManifestRelativeToHere = path.resolve(__dirname, '..', 'nw', 'package.json');
+    const nwManifestRelativeToHere = path.resolve('..', 'nw', 'package.json');
     const cwdExists = await fileExists(nwManifestRelativeToCwd);
     const hereExists = await fileExists(nwManifestRelativeToHere);
     if (cwdExists) {
@@ -66,7 +65,7 @@ function getLocalNwManifest () {
   return new Promise(async (resolve, reject) => {
     try {
       const nwManifest = await getLocalNwManifestPath();
-      let data = await fs.readFile(nwManifest, 'binary');
+      let data = await fs.promises.readFile(nwManifest, { encoding: 'binary' });
       data = JSON.parse(data);
       resolve(data);
     } catch (error) {
@@ -80,8 +79,12 @@ function getLocalNWVersion () {
     const nwManifest = await getLocalNwManifest();
     let localNwVersion = nwManifest?.version || '';
 
-    // '0.82.0-sdk' => '0.82.0'
-    localNwVersion = localNwVersion.replace('-sdk', '');
+    const parsedVersion = semver.parse(localNwVersion);
+    localNwVersion = [
+      parsedVersion.major,
+      parsedVersion.minor,
+      parsedVersion.patch,
+    ].join('.');
 
     if (localNwVersion) {
       resolve(localNwVersion);
@@ -149,7 +152,7 @@ function determinOriginalEOL (data) {
 function getManifestPath () {
   return new Promise(async (resolve, reject) => {
     const manifestRelativeToCwd = path.resolve(process.cwd(), 'package.json');
-    const manifestRelativeToHere = path.resolve(__dirname, '..', '..', 'package.json');
+    const manifestRelativeToHere = path.resolve('..', '..', 'package.json');
     const cwdExists = await fileExists(manifestRelativeToCwd);
     const hereExists = await fileExists(manifestRelativeToHere);
     if (cwdExists) {
@@ -166,7 +169,7 @@ function getManifest () {
   return new Promise(async (resolve, reject) => {
     try {
       const manifest = await getManifestPath();
-      let data = await fs.readFile(manifest, 'binary');
+      let data = await fs.promises.readFile(manifest, { encoding: 'binary'});
       determineOriginalManifestIndentation(String(data));
       determinOriginalEOL(String(data));
       data = JSON.parse(data);
@@ -200,7 +203,7 @@ async function run () {
     mutatedManifest = mutatedManifest.replaceAll('\r\n', '\n').replaceAll('\n', originalManifestEOL);
     mutatedManifest = mutatedManifest + originalManifestEOL;
 
-    await fs.writeFile(manifestPath, mutatedManifest);
+    await fs.promises.writeFile(manifestPath, mutatedManifest);
   } catch (error) {
     console.error(error);
   }
