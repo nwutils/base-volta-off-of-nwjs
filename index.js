@@ -57,7 +57,7 @@ function getLocalNwManifest () {
   return new Promise(async (resolve, reject) => {
     try {
       const nwManifest = await getLocalNwManifestPath();
-      let data = await fs.promises.readFile(nwManifest, {encoding: 'binary'});
+      let data = await fs.promises.readFile(nwManifest, { encoding: 'binary' });
       data = JSON.parse(data);
       resolve(data);
     } catch (error) {
