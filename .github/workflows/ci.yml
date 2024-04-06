@@ -29,6 +29,6 @@ jobs:
     - run: npm i
     - run: npm link
     - run: |
-      cd ./tests/fixtures/app
-      npm i
+        cd ./tests/fixtures/app
+        npm i
     - run: npm test
