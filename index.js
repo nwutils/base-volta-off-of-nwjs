@@ -1,23 +1,14 @@
 #!/usr/bin/env node
 
-// SUPER IMPORTANT:
-// Node is extremely annoying and refuses to allow ESM imports in
-// CLI tools, so we have to use require here. Do not change to import.
-const fs = require('node:fs').promises;
-const path = require('node:path');
-
-let https;
-try {
-  https = require('node:https');
-} catch (error) {
-  console.error('https support is disabled!');
-}
+import fs from 'node:fs';
+import https from 'node:https';
+import path from 'node:path';
 
 let originalManifestIndentation = 2;
 let originalManifestEOL = '\n';
 
 function fileExists (file) {
-  return require('node:fs').existsSync(file);
+  return fs.existsSync(file);
 }
 
 function getVersions () {
@@ -66,7 +57,7 @@ function getLocalNwManifest () {
   return new Promise(async (resolve, reject) => {
     try {
       const nwManifest = await getLocalNwManifestPath();
-      let data = await fs.readFile(nwManifest, 'binary');
+      let data = await fs.promises.readFile(nwManifest, {encoding: 'binary'});
       data = JSON.parse(data);
       resolve(data);
     } catch (error) {
@@ -166,7 +157,7 @@ function getManifest () {
   return new Promise(async (resolve, reject) => {
     try {
       const manifest = await getManifestPath();
-      let data = await fs.readFile(manifest, 'binary');
+      let data = await fs.promises.readFile(manifest, { encoding: 'binary' });
       determineOriginalManifestIndentation(String(data));
       determinOriginalEOL(String(data));
       data = JSON.parse(data);
@@ -200,7 +191,7 @@ async function run () {
     mutatedManifest = mutatedManifest.replaceAll('\r\n', '\n').replaceAll('\n', originalManifestEOL);
     mutatedManifest = mutatedManifest + originalManifestEOL;
 
-    await fs.writeFile(manifestPath, mutatedManifest);
+    await fs.promises.writeFile(manifestPath, mutatedManifest);
   } catch (error) {
     console.error(error);
   }
