@@ -83,14 +83,12 @@ function getLocalNWVersion () {
     let localNwVersion = nwManifest?.version || '';
 
     const parsedVersion = semver.parse(localNwVersion);
-    localNwVersion = [
-      parsedVersion.major,
-      parsedVersion.minor,
-      parsedVersion.patch,
-    ].join('.');
-
-    if (localNwVersion) {
-      resolve(localNwVersion);
+    if (parsedVersion) {
+      resolve([
+        parsedVersion.major,
+        parsedVersion.minor,
+        parsedVersion.patch,
+      ].join('.'));
     } else {
       reject(new Error('Unable to get local NW.js version'));
     }
