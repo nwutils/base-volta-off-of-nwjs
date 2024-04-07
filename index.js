@@ -5,6 +5,9 @@ import https from 'node:https';
 import path from 'node:path';
 
 import * as semver from 'semver';
+import { fileURLToPath } from 'node:url';
+    
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 let originalManifestIndentation = 2;
 let originalManifestEOL = '\n';
@@ -48,7 +51,7 @@ function getVersions () {
 function getLocalNwManifestPath () {
   return new Promise(async (resolve, reject) => {
     const nwManifestRelativeToCwd = path.resolve(process.cwd(), 'node_modules', 'nw', 'package.json');
-    const nwManifestRelativeToHere = path.resolve('..', 'nw', 'package.json');
+    const nwManifestRelativeToHere = path.resolve(__dirname, '..', 'nw', 'package.json');
     const cwdExists = await fileExists(nwManifestRelativeToCwd);
     const hereExists = await fileExists(nwManifestRelativeToHere);
     if (cwdExists) {
@@ -152,7 +155,7 @@ function determinOriginalEOL (data) {
 function getManifestPath () {
   return new Promise(async (resolve, reject) => {
     const manifestRelativeToCwd = path.resolve(process.cwd(), 'package.json');
-    const manifestRelativeToHere = path.resolve('..', '..', 'package.json');
+    const manifestRelativeToHere = path.resolve(__dirname, '..', '..', 'package.json');
     const cwdExists = await fileExists(manifestRelativeToCwd);
     const hereExists = await fileExists(manifestRelativeToHere);
     if (cwdExists) {
@@ -169,7 +172,7 @@ function getManifest () {
   return new Promise(async (resolve, reject) => {
     try {
       const manifest = await getManifestPath();
-      let data = await fs.promises.readFile(manifest, { encoding: 'binary'});
+      let data = await fs.promises.readFile(manifest, { encoding: 'binary' });
       determineOriginalManifestIndentation(String(data));
       determinOriginalEOL(String(data));
       data = JSON.parse(data);
