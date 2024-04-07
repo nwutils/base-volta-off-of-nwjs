@@ -19,6 +19,7 @@ module.exports = {
     'newline-before-expect-assertion': 'error',
     'test-names-avoid-should': 'error',
     'jest/no-deprecated-functions': 'off',
+    'no-async-promise-executor': 'off',
     'no-restricted-syntax': [
       'error',
       ...baseRestrictedSyntax,
