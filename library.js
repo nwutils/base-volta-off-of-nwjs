@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import fs from 'node:fs';
 import https from 'node:https';
 import path from 'node:path';
@@ -185,7 +183,7 @@ function getManifestWithUpdatedVoltaObject () {
   });
 }
 
-async function run () {
+export async function run () {
   try {
     const manifestPath = await getManifestPath();
 
@@ -199,5 +197,3 @@ async function run () {
     console.error(error);
   }
 }
-
-run();
