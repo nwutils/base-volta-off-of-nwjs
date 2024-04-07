@@ -12,7 +12,7 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 let originalManifestIndentation = 2;
 let originalManifestEOL = '\n';
 
-async function fileExists (file) {
+async function fileExists(file) {
   let exists = true;
   try {
     await fs.promises.stat(file);
@@ -22,7 +22,7 @@ async function fileExists (file) {
   return exists;
 }
 
-function getVersions () {
+function getVersions() {
   return new Promise((resolve, reject) => {
     const request = https.get('https://nwjs.io/versions.json', (response) => {
       response.setEncoding('utf8');
@@ -48,7 +48,7 @@ function getVersions () {
   });
 }
 
-function getLocalNwManifestPath () {
+function getLocalNwManifestPath() {
   return new Promise(async (resolve, reject) => {
     const nwManifestRelativeToCwd = path.resolve(process.cwd(), 'node_modules', 'nw', 'package.json');
     const nwManifestRelativeToHere = path.resolve(__dirname, '..', 'nw', 'package.json');
@@ -64,7 +64,7 @@ function getLocalNwManifestPath () {
   });
 }
 
-function getLocalNwManifest () {
+function getLocalNwManifest() {
   return new Promise(async (resolve, reject) => {
     try {
       const nwManifest = await getLocalNwManifestPath();
@@ -77,7 +77,7 @@ function getLocalNwManifest () {
   });
 }
 
-function getLocalNWVersion () {
+function getLocalNWVersion() {
   return new Promise(async (resolve, reject) => {
     const nwManifest = await getLocalNwManifest();
     let localNwVersion = nwManifest?.version || '';
@@ -95,7 +95,7 @@ function getLocalNWVersion () {
   });
 }
 
-function getCorrectNodeVersion () {
+function getCorrectNodeVersion() {
   return new Promise(async (resolve, reject) => {
     try {
       const localNwVersion = await getLocalNWVersion();
@@ -120,7 +120,7 @@ function getCorrectNodeVersion () {
   });
 }
 
-function determineOriginalManifestIndentation (data) {
+function determineOriginalManifestIndentation(data) {
   data = data.trim();
   data = data.replaceAll('\r\n', '\n');
 
@@ -142,7 +142,7 @@ function determineOriginalManifestIndentation (data) {
   }
 }
 
-function determinOriginalEOL (data) {
+function determinOriginalEOL(data) {
   if (data.includes('\r\n')) {
     originalManifestEOL = '\r\n';
   } else {
@@ -150,7 +150,7 @@ function determinOriginalEOL (data) {
   }
 }
 
-function getManifestPath () {
+function getManifestPath() {
   return new Promise(async (resolve, reject) => {
     const manifestRelativeToCwd = path.resolve(process.cwd(), 'package.json');
     const manifestRelativeToHere = path.resolve(__dirname, '..', '..', 'package.json');
@@ -166,7 +166,7 @@ function getManifestPath () {
   });
 }
 
-function getManifest () {
+function getManifest() {
   return new Promise(async (resolve, reject) => {
     try {
       const manifest = await getManifestPath();
@@ -181,7 +181,7 @@ function getManifest () {
   });
 }
 
-function getManifestWithUpdatedVoltaObject () {
+function getManifestWithUpdatedVoltaObject() {
   return new Promise(async (resolve, reject) => {
     try {
       const manifest = await getManifest();
@@ -195,7 +195,7 @@ function getManifestWithUpdatedVoltaObject () {
   });
 }
 
-async function run () {
+async function run() {
   try {
     const manifestPath = await getManifestPath();
 
