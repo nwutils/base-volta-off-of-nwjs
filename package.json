@@ -7,8 +7,8 @@
   "license": "MIT",
   "description": "Updates Volta config in package.json so Node match's what your NW.js version uses",
   "scripts": {
-    "lint": "eslint --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs",
-    "fix": "eslint --fix --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs",
+    "lint": "eslint --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs index.js library.js tests",
+    "fix": "eslint --fix --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs index.js library.js tests",
     "test": "vitest run --pool=forks"
   },
   "devDependencies": {
