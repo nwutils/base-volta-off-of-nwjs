@@ -1,18 +1,18 @@
+import child_process from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import child_process from 'node:child_process';
 import process from 'node:process';
 
 import { test, expect } from 'vitest';
 
 test('cli works', async function () {
     process.chdir('tests/fixtures/app');
-    child_process.execSync('npm start');
+    // Package is npm linked in CI before running this test
+    child_process.execSync('base-volta-off-of-nwjs');
 
-    const NodeManifestPath = path.resolve('package.json');
-    const NodeManifestBuffer = await fs.promises.readFile(NodeManifestPath);
-    const NodeManifest = JSON.parse(NodeManifestBuffer.toString());
-    const NodeVersion = NodeManifest.volta.node;
+    const nodeManifestBuffer = await fs.promises.readFile(path.resolve('package.json'));
+    const nodeManifest = JSON.parse(nodeManifestBuffer.toString());
+    const nodeVersion = nodeManifest.volta.node;
 
-    expect(NodeVersion).toBe('21.1.0');
+    expect(nodeVersion).toBe('21.1.0');
 });
