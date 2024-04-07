@@ -15,5 +15,6 @@ test('cli behaviour for specific build', async function () {
   const nodeManifest = JSON.parse(nodeManifestBuffer.toString());
   const nodeVersion = nodeManifest.volta.node;
 
-  expect(nodeVersion).toBe('21.1.0');
+  expect(nodeVersion)
+    .toEqual('21.1.0');
 });
