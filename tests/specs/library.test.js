@@ -10,10 +10,9 @@ import { run } from '../../library.js';
 describe('Library', () => {
   describe('Run', () => {
     test('Handles versions with hyphenated build numbers', async () => {
-      // NW.js binary is installed via nwjs/npm-installer in CI before running this test
       process.chdir('tests/fixtures/build-number');
 
-      // Ensure NW.js has been instealled in the fixture so the library can check it's version
+      // Ensure NW.js has been installed in the fixture so the library can check its version
       child_process.execSync('npm i');
 
       // Run the library
