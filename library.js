@@ -5,7 +5,7 @@ import https from 'node:https';
 import path from 'node:path';
 import url from 'node:url';
 
-import { parse } from 'semver';
+import { parse as semverParse } from 'semver';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
@@ -82,7 +82,7 @@ function getLocalNWVersion () {
     const nwManifest = await getLocalNwManifest();
     let localNwVersion = nwManifest?.version || '';
 
-    const parsedVersion = parse(localNwVersion);
+    const parsedVersion = semverParse(localNwVersion);
     if (parsedVersion) {
       resolve([
         parsedVersion.major,
