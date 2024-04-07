@@ -9,6 +9,6 @@ tests/
 .gitignore
 .npmignore
 CODE_OF_CONDUCT.md
-jest.config.js
-package-lock.json
+vite.config.js
+vitest.config.js
 README.md
