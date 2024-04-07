@@ -7,7 +7,7 @@ import { test, expect } from 'vitest';
 
 test('cli behaviour for specific build', async function () {
     // NW.js binary is installed via nwjs/npm-installer in CI before running this test
-    process.chdir('tests/fixtures/app');
+    process.chdir('tests/fixtures/build-number');
     // Package is npm linked in CI before running this test
     child_process.execSync('base-volta-off-of-nwjs');
 
