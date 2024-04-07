@@ -5,7 +5,7 @@ import process from 'node:process';
 
 import { test, expect } from 'vitest';
 
-test('cli behaviour', async function () {
+test('cli behaviour for specific build', async function () {
     // NW.js binary is installed via nwjs/npm-installer in CI before running this test
     process.chdir('tests/fixtures/app');
     // Package is npm linked in CI before running this test

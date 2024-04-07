@@ -3,11 +3,11 @@
 import fs from 'node:fs';
 import https from 'node:https';
 import path from 'node:path';
+import url from 'node:url';
 
 import * as semver from 'semver';
-import { fileURLToPath } from 'node:url';
-    
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 let originalManifestIndentation = 2;
 let originalManifestEOL = '\n';
