@@ -7,12 +7,16 @@
   "license": "MIT",
   "description": "Updates Volta config in package.json so Node match's what your NW.js version uses",
   "scripts": {
-    "lint": "eslint --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs",
-    "fix": "eslint --fix --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs",
-    "test": "vitest run --pool=forks"
+    "lint": "eslint --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs tests",
+    "fix": "eslint --fix --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs tests",
+    "test": "vitest run --pool=forks --coverage"
+  },
+  "dependencies": {
+    "semver": "^7.6.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
+    "@vitest/coverage-v8": "^1.4.0",
     "eslint": "^8.54.0",
     "eslint-config-tjw-base": "^2.0.0",
     "eslint-config-tjw-import": "^1.0.0",
@@ -40,8 +44,5 @@
   "volta": {
     "node": "21.4.0",
     "npm": "10.2.4"
-  },
-  "dependencies": {
-    "semver": "^7.6.0"
   }
 }
