@@ -26,7 +26,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: volta-cli/action@v4
-    - run: npm i
+    - run: npm ci
     - run: npm link
     - run: |
         cd ./tests/fixtures/app
