@@ -1,22 +1,28 @@
 {
   "name": "base-volta-off-of-nwjs",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "index.js",
   "type": "module",
   "bin": "./index.js",
   "license": "MIT",
   "description": "Updates Volta config in package.json so Node match's what your NW.js version uses",
   "scripts": {
-    "lint": "eslint --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs index.js library.js",
-    "fix": "eslint --fix --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs index.js library.js"
+    "lint": "eslint --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs index.js library.js tests",
+    "fix": "eslint --fix --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs index.js library.js tests",
+    "test": "vitest run --pool=forks --coverage"
+  },
+  "dependencies": {
+    "semver": "^7.6.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
+    "@vitest/coverage-v8": "^1.4.0",
     "eslint": "^8.54.0",
     "eslint-config-tjw-base": "^2.0.0",
     "eslint-config-tjw-import": "^1.0.0",
     "eslint-config-tjw-jest": "^2.0.0",
-    "eslint-plugin-import": "^2.29.0"
+    "eslint-plugin-import": "^2.29.0",
+    "vitest": "^1.4.0"
   },
   "repository": {
     "type": "git",

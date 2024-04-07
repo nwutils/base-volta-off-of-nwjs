@@ -1,0 +1,7 @@
+{
+  "name": "demo",
+  "private": true,
+  "devDependencies": {
+    "nw": "0.86.0-1"
+  }
+}

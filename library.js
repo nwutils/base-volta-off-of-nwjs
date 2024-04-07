@@ -1,15 +1,23 @@
 import fs from 'node:fs';
 import https from 'node:https';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import url from 'node:url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import { parse as semverParse } from 'semver';
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 let originalManifestIndentation = 2;
 let originalManifestEOL = '\n';
 
-function fileExists (file) {
-  return fs.existsSync(file);
+async function fileExists (file) {
+  let exists = true;
+  try {
+    await fs.promises.stat(file);
+  } catch {
+    exists = false;
+  }
+  return exists;
 }
 
 function getVersions () {
@@ -72,11 +80,13 @@ function getLocalNWVersion () {
     const nwManifest = await getLocalNwManifest();
     let localNwVersion = nwManifest?.version || '';
 
-    // '0.82.0-sdk' => '0.82.0'
-    localNwVersion = localNwVersion.replace('-sdk', '');
-
-    if (localNwVersion) {
-      resolve(localNwVersion);
+    const parsedVersion = semverParse(localNwVersion);
+    if (parsedVersion) {
+      resolve([
+        parsedVersion.major,
+        parsedVersion.minor,
+        parsedVersion.patch
+      ].join('.'));
     } else {
       reject(new Error('Unable to get local NW.js version'));
     }
