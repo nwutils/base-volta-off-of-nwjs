@@ -3,7 +3,7 @@ import https from 'node:https';
 import path from 'node:path';
 import url from 'node:url';
 
-import * as semver from 'semver';
+import { parse as semverParse } from 'semver';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
@@ -80,12 +80,12 @@ function getLocalNWVersion () {
     const nwManifest = await getLocalNwManifest();
     let localNwVersion = nwManifest?.version || '';
 
-    const parsedVersion = semver.parse(localNwVersion);
+    const parsedVersion = semverParse(localNwVersion);
     if (parsedVersion) {
       resolve([
         parsedVersion.major,
         parsedVersion.minor,
-        parsedVersion.patch,
+        parsedVersion.patch
       ].join('.'));
     } else {
       reject(new Error('Unable to get local NW.js version'));

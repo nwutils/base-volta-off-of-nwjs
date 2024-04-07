@@ -5,7 +5,7 @@ import process from 'node:process';
 
 import { test, expect } from 'vitest';
 
-test('cli behaviour for specific build', async function () {
+test('CLI behaviour for specific build', async function () {
   // NW.js binary is installed via nwjs/npm-installer in CI before running this test
   process.chdir('tests/fixtures/build-number');
   // Package is npm linked in CI before running this test
@@ -15,5 +15,6 @@ test('cli behaviour for specific build', async function () {
   const nodeManifest = JSON.parse(nodeManifestBuffer.toString());
   const nodeVersion = nodeManifest.volta.node;
 
-  expect(nodeVersion).toEqual('21.1.0');
+  expect(nodeVersion)
+    .toEqual('21.1.0');
 });
