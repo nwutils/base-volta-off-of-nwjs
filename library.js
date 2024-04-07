@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import https from 'node:https';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-    
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 let originalManifestIndentation = 2;
