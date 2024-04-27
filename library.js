@@ -193,7 +193,7 @@ function getManifestWithUpdatedVoltaObject () {
   });
 }
 
-function saveNewManifest () {
+function saveNewManifest (mutatedManifest) {
   return new Promise(async (resolve, reject) => {
     try {
       const manifestPath = await getManifestPath();
