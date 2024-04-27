@@ -193,16 +193,24 @@ function getManifestWithUpdatedVoltaObject () {
   });
 }
 
+function saveNewManifest () {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const manifestPath = await getManifestPath();
+      mutatedManifest = JSON.stringify(mutatedManifest, null, originalManifestIndentation);
+      mutatedManifest = mutatedManifest.replaceAll('\r\n', '\n').replaceAll('\n', originalManifestEOL);
+      mutatedManifest = mutatedManifest + originalManifestEOL;
+      await fs.promises.writeFile(manifestPath, mutatedManifest);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
 export async function run () {
   try {
-    const manifestPath = await getManifestPath();
-
-    let mutatedManifest = await getManifestWithUpdatedVoltaObject();
-    mutatedManifest = JSON.stringify(mutatedManifest, null, originalManifestIndentation);
-    mutatedManifest = mutatedManifest.replaceAll('\r\n', '\n').replaceAll('\n', originalManifestEOL);
-    mutatedManifest = mutatedManifest + originalManifestEOL;
-
-    await fs.promises.writeFile(manifestPath, mutatedManifest);
+    const mutatedManifest = await getManifestWithUpdatedVoltaObject();
+    await saveNewManifest(mutatedManifest);
   } catch (error) {
     console.error(error);
   }
