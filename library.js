@@ -201,6 +201,7 @@ function saveNewManifest (mutatedManifest) {
       mutatedManifest = mutatedManifest.replaceAll('\r\n', '\n').replaceAll('\n', originalManifestEOL);
       mutatedManifest = mutatedManifest + originalManifestEOL;
       await fs.promises.writeFile(manifestPath, mutatedManifest);
+      resolve();
     } catch (error) {
       reject(error);
     }
