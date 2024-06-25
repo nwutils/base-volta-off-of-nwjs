@@ -1,5 +1,7 @@
 # base-volta-off-of-nwjs
 
+[![npm](https://img.shields.io/npm/v/base-volta-off-of-nwjs)](https://www.npmjs.com/package/base-volta-off-of-nwjs)
+
 Updates the Volta config in your `package.json` so your Node.js version will match the version of Node.js built in to NW.js.
 
 
