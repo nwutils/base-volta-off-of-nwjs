@@ -46,6 +46,7 @@
   },
   "homepage": "https://github.com/nwutils/base-volta-off-of-nwjs#readme",
   "volta": {
-    "node": "22.3.0"
+    "node": "21.4.0",
+    "npm": "10.2.4"
   }
 }
