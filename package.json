@@ -11,18 +11,22 @@
     "fix": "eslint --fix --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs index.js library.js tests",
     "test": "vitest run --pool=forks --coverage"
   },
+  "ManifestComments": [
+    "Pinned eslint to 8.52.0 until I have time to switch to using @stylistic",
+    "eslint 8.52.0 was the last version to officially support stylistic linting, now moved to separate repo"
+  ],
   "dependencies": {
-    "semver": "^7.6.0"
+    "semver": "^7.6.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.23.3",
-    "@vitest/coverage-v8": "^1.4.0",
-    "eslint": "^8.54.0",
+    "@babel/eslint-parser": "^7.24.7",
+    "@vitest/coverage-v8": "^1.6.0",
+    "eslint": "8.52.0",
     "eslint-config-tjw-base": "^2.0.0",
     "eslint-config-tjw-import": "^1.0.0",
     "eslint-config-tjw-jest": "^2.0.0",
-    "eslint-plugin-import": "^2.29.0",
-    "vitest": "^1.4.0"
+    "eslint-plugin-import": "^2.29.1",
+    "vitest": "^1.6.0"
   },
   "repository": {
     "type": "git",
