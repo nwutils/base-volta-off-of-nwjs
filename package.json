@@ -21,7 +21,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.24.7",
     "@vitest/coverage-v8": "^1.6.0",
-    "eslint": "8.52.0",
+    "eslint": "9.4.0",
     "eslint-config-tjw-base": "^2.0.0",
     "eslint-config-tjw-import": "^1.0.0",
     "eslint-config-tjw-jest": "^2.0.0",
