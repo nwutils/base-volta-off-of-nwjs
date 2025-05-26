@@ -16,7 +16,7 @@
     "eslint 8.52.0 was the last version to officially support stylistic linting, now moved to separate repo"
   ],
   "dependencies": {
-    "semver": "^7.7.1"
+    "semver": "^7.7.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.26.8",
