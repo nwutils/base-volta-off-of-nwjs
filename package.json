@@ -7,8 +7,8 @@
   "license": "MIT",
   "description": "Updates Volta config in package.json so Node match's what your NW.js version uses",
   "scripts": {
-    "lint": "eslint --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs index.js library.js tests",
-    "fix": "eslint --fix --rulesdir=./node_modules/eslint-config-tjw-jest/custom-eslint-rules --ext .js --config=.eslintrc.cjs .eslintrc.cjs index.js library.js tests",
+    "lint": "eslint --ext .js index.js library.js tests",
+    "fix": "npm run lint -- --fix",
     "test": "vitest run --pool=forks --coverage --testTimeout 120000"
   },
   "ManifestComments": [
@@ -16,16 +16,19 @@
     "eslint 8.52.0 was the last version to officially support stylistic linting, now moved to separate repo"
   ],
   "dependencies": {
-    "semver": "^7.7.1"
+    "semver": "^7.7.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.26.8",
+    "@eslint/js": "^9.27.0",
+    "@stylistic/eslint-plugin": "^4.4.0",
     "@vitest/coverage-v8": "^3.0.7",
-    "eslint": "8.52.0",
-    "eslint-config-tjw-base": "^2.0.0",
-    "eslint-config-tjw-import": "^1.0.0",
-    "eslint-config-tjw-jest": "^2.0.0",
+    "eslint": "^9.27.0",
+    "eslint-config-tjw-base": "^4.2.0",
+    "eslint-config-tjw-import": "^2.0.0",
+    "eslint-config-tjw-jest": "^3.0.0",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.11.0",
+    "globals": "^16.2.0",
     "vitest": "^3.0.5"
   },
   "repository": {
