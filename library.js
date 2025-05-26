@@ -208,6 +208,7 @@ function saveNewManifest (mutatedManifest) {
   });
 }
 
+// eslint-disable-next-line import/no-unused-modules
 export async function run () {
   try {
     const mutatedManifest = await getManifestWithUpdatedVoltaObject();
