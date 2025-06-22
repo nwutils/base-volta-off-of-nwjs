@@ -24,7 +24,7 @@ describe('Library', () => {
       const nodeVersion = manifest.volta.node;
 
       expect(nodeVersion)
-        .toEqual('21.1.0');
+        .toEqual('24.1.0');
 
       // Reset the package.json file
       delete manifest.volta;
