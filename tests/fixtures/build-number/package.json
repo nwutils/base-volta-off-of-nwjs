@@ -2,6 +2,6 @@
   "name": "demo",
   "private": true,
   "devDependencies": {
-    "nw": "0.100.1"
+    "nw": "0.94.1-1"
   }
 }
