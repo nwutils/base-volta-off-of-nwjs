@@ -11,25 +11,21 @@
     "fix": "npm run lint -- --fix",
     "test": "vitest run --pool=forks --coverage --testTimeout 120000"
   },
-  "ManifestComments": [
-    "Pinned eslint to 8.52.0 until I have time to switch to using @stylistic",
-    "eslint 8.52.0 was the last version to officially support stylistic linting, now moved to separate repo"
-  ],
   "dependencies": {
     "semver": "^7.7.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",
     "@stylistic/eslint-plugin": "^5.1.0",
-    "@vitest/coverage-v8": "^3.0.7",
-    "eslint": "^9.27.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^9.30.0",
     "eslint-config-tjw-base": "^4.3.0",
     "eslint-config-tjw-import": "^2.0.0",
     "eslint-config-tjw-jest": "^3.0.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jest": "^29.0.1",
-    "globals": "^16.2.0",
-    "vitest": "^3.0.5"
+    "globals": "^16.3.0",
+    "vitest": "^3.2.4"
   },
   "repository": {
     "type": "git",
