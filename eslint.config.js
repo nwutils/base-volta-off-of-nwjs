@@ -15,15 +15,12 @@ export default [
   {
     // project specific rules/settings
     languageOptions: {
+      ecmaVersion: 2025,
       globals: {
         vi: true
       }
     },
     rules: {
-      'import/named': 'off',
-      'import/namespace': 'off',
-      'import/no-deprecated': 'off',
-
       // If this is not turned off, linting throws because it can't find 'jest' install
       'jest/no-deprecated-functions': 'off',
       'no-async-promise-executor': 'off'
