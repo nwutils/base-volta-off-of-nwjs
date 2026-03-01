@@ -12,19 +12,19 @@
     "test": "vitest run --pool=forks --coverage --testTimeout 120000"
   },
   "dependencies": {
-    "semver": "^7.7.3"
+    "semver": "^7.7.4"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@stylistic/eslint-plugin": "^5.6.1",
-    "@vitest/coverage-v8": "^4.0.14",
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.9.0",
+    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.30.0",
     "eslint-config-tjw-base": "^4.3.0",
     "eslint-config-tjw-import": "^2.0.0",
     "eslint-config-tjw-jest": "^3.0.0",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jest": "^29.2.1",
-    "globals": "^16.5.0",
+    "eslint-plugin-jest": "^29.15.0",
+    "globals": "^17.3.0",
     "vitest": "^4.0.6"
   },
   "repository": {
